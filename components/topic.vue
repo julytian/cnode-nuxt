@@ -2,7 +2,7 @@
 import { PropType } from 'vue';
 import { ITopic } from '~~/interfaces/topic';
 
-defineProps({
+const props = defineProps({
   topic: {
     type: Object as PropType<ITopic>,
   }
@@ -14,9 +14,12 @@ function getTabInfo(tab: string, good: boolean, top: boolean, isClass: boolean) 
 function getLastTimeStr(time: Date, friendly: boolean) {
   return useGetLastTimeStr(time, friendly);
 }
+function onClick() {
+  navigateTo(`/topic/${props.topic.id}`)
+}
 </script>
 <template>
-  <div class="topic van-hairline--bottom hover:opacity-60">
+  <div class="topic van-hairline--bottom hover:opacity-60" @click="onClick">
     <h3 class="line-clamp-2 font-bold" :class="getTabInfo(topic.tab, topic.good, topic.top, true)"
       :title="getTabInfo(topic.tab, topic.good, topic.top, false)">
       {{ topic.title }}
