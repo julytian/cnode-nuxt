@@ -1,0 +1,1 @@
+export const CNODE_USER_INFO = 'CNODE_USER_INFO';

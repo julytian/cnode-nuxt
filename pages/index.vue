@@ -18,7 +18,6 @@ const tabs = {
   dev: '测试',
 }
 const title = computed(() => tabs[tab.value as string])
-const show = ref(false)
 let locked = false;
 
 async function onLoad() {
@@ -54,6 +53,9 @@ function onRefresh() {
 onLoad()
 
 watch(tab, onRefresh)
+definePageMeta({
+  keepalive: true,
+})
 </script>
 <template>
   <div class="min-h-screen">

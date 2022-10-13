@@ -66,6 +66,7 @@
 
   // Other
   --cnode-menu: #202325;
+  --cnode-comment: var(--cnode-white)
 }
 .van-theme-dark {
   --cnode-text-color: #aec2d3;
@@ -75,4 +76,5 @@
   --cnode-background: #181a1b;
   --cnode-background-2: #202325;
   --cnode-menu: var(--cnode-white);
+  --cnode-comment: var(--cnode-background);
 }

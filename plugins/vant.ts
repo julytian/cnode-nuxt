@@ -9,6 +9,12 @@ import {
   PullRefresh,
   Cell,
   Lazyload,
+  Tab,
+  Tabs,
+  Empty,
+  Field,
+  DropdownMenu,
+  DropdownItem,
 } from 'vant';
 import 'vant/lib/index.css';
 
@@ -23,5 +29,11 @@ export default defineNuxtPlugin((nuxtApp) => {
     .use(List)
     .use(PullRefresh)
     .use(Cell)
+    .use(Tab)
+    .use(Tabs)
+    .use(Empty)
+    .use(Field)
+    .use(DropdownMenu)
+    .use(DropdownItem)
     .use(Lazyload);
 });
