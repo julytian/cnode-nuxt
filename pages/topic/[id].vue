@@ -1,47 +1,65 @@
 <script setup lang="ts">
-import { showImagePreview, showToast } from 'vant'
-const route = useRoute()
-const userInfo = useUserInfo()
-const { data: topic, refresh } = await useGetTopic(route.params.id as string)
+import { showImagePreview, showToast } from 'vant';
+const route = useRoute();
+const userInfo = useUserInfo();
+const { data: topic, refresh } = await useGetTopic(route.params.id as string);
 
 async function onCollect(isCollect: boolean) {
-  const { data } = await useToggleCollect(userInfo.value.token, topic.value.id, !isCollect)
+  const { data } = await useToggleCollect(
+    userInfo.value.token,
+    topic.value.id,
+    !isCollect
+  );
   if (data.value && data.value.success) {
-    topic.value.is_collect = !isCollect
-    showToast(isCollect ? '取消收藏成功' : '收藏成功')
+    topic.value.is_collect = !isCollect;
+    showToast(isCollect ? '取消收藏成功' : '收藏成功');
   }
 }
 
 onMounted(() => {
-  const imgs = document.querySelectorAll('.markdown-body img');
+  const imgs = document.querySelectorAll('#markdownBody img');
   const images: string[] = [];
-  imgs.forEach((img, index) => {
-    let url = img.getAttribute('src') as string;
-    if (!url.startsWith('http')) {
-      url = `https:${url}`;
-    }
-    images.push(url);
-    img.addEventListener('click', () => {
-      showImagePreview({
-        images,
-        startPosition: index,
-        closeable: true,
-        teleport: 'body',
+  nextTick(() => {
+    imgs.forEach((img, index) => {
+      let url = img.getAttribute('src') as string;
+      if (!url.startsWith('http')) {
+        url = `https:${url}`;
+      }
+      images.push(url);
+      img.addEventListener('click', () => {
+        showImagePreview({
+          images,
+          startPosition: index,
+          closeable: true,
+          teleport: 'body',
+        });
       });
     });
   });
-})
+});
 </script>
 <template>
   <div>
-    <NavMenu title="主题" :topic-id="topic.author_id === userInfo.id ? topic.id :''">
-      <van-icon v-show="userInfo.token" name="like" size="20" :color="topic.is_collect ? '#e74c3c' : '#42b983'"
-        @click="onCollect(topic.is_collect)" />
+    <NavMenu
+      title="主题"
+      :topic-id="topic.author_id === userInfo.id ? topic.id : ''"
+    >
+      <van-icon
+        v-show="userInfo.token"
+        name="like"
+        size="20"
+        :color="topic.is_collect ? '#e74c3c' : '#42b983'"
+        @click="onCollect(topic.is_collect)"
+      />
     </NavMenu>
     <div class="topic-detail">
       <h2 class="topic-title font-bold">{{ topic.title }}</h2>
       <TopicInfo :topic="topic" />
-      <section class="markdown-body" v-html="topic.content"></section>
+      <section
+        id="markdownBody"
+        class="markdown-body"
+        v-html="topic.content"
+      ></section>
     </div>
     <TopicReply :topic="topic" @refresh="refresh" />
     <BackTop />
