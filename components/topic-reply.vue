@@ -91,7 +91,7 @@ function onComment() {
         <div class="flex items-center flex-1">
           <div class="flex-1 topic-reply__info-content">
             {{ item.author.loginname }} 发布于：{{
-            getLastTimeStr(item.create_at, true)
+            $getLastTimeStr(item.create_at, true)
             }}
           </div>
           <span class="iconfont topic-reply__icon" :class="{ uped: isUps(item) }"
