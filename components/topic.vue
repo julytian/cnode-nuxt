@@ -25,7 +25,7 @@ function onClick() {
       {{ topic.title }}
     </h3>
     <div class="flex items-center content">
-      <img class="avatar" v-lazy="topic.author.avatar_url" alt="用户头像" />
+      <img class="avatar" v-lazy="topic.author.avatar_url" />
       <div class="flex-1">
         <p class="info">
           <span class="name">{{ topic.author.loginname }}</span>

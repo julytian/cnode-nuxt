@@ -2,31 +2,31 @@
 import { showToast } from 'vant';
 import { IUpdateTopicParams } from '~~/interfaces';
 
-const route = useRoute()
-const router = useRouter()
-const userInfo = useUserInfo()
-const topicId = computed(() => route.query.id)
-const title = computed(() => topicId.value ? '编辑主题' : '添加主题')
-const btnText = computed(() => topicId.value ? '更新' : '发布')
+const route = useRoute();
+const router = useRouter();
+const userInfo = useUserInfo();
+const topicId = computed(() => route.query.id);
+const title = computed(() => (topicId.value ? '编辑主题' : '添加主题'));
+const btnText = computed(() => (topicId.value ? '更新' : '发布'));
 const topic = reactive({
-  tab: "dev",
+  tab: 'dev',
   options: [
-    { text: "测试", value: "dev" },
-    { text: "分享", value: "share" },
-    { text: "问答", value: "ask" },
-    { text: "招聘", value: "job" },
+    { text: '测试', value: 'dev' },
+    { text: '分享', value: 'share' },
+    { text: '问答', value: 'ask' },
+    { text: '招聘', value: 'job' },
   ],
-  title: "",
-  content: "",
+  title: '',
+  content: '',
 });
 
 async function onSubmit() {
   if (!topic.title) {
-    showToast("标题不能为空");
+    showToast('标题不能为空');
     return;
   }
   if (!topic.content) {
-    showToast("内容不能为空");
+    showToast('内容不能为空');
     return;
   }
   const body: IUpdateTopicParams = {
@@ -34,38 +34,42 @@ async function onSubmit() {
     title: topic.title,
     tab: topic.tab,
     content: topic.content,
-  }
+  };
   if (topicId.value) {
     body.topic_id = topicId.value as string;
   }
-  const { data } = await useUpdateTopic(body, !!topicId.value)
+  const { data } = await useUpdateTopic(body, !!topicId.value);
   if (data.value) {
     if (topicId.value) {
-      showToast('更新成功')
+      showToast('更新成功');
       router.back();
     } else {
-      showToast('发布成功')
-      navigateTo(`/?tab=${topic.tab}`)
+      showToast('发布成功');
+      navigateTo(`/?tab=${topic.tab}`);
     }
   }
 }
 function onClear() {
-  topic.title = ''
+  topic.title = '';
 }
 
 watchEffect(async () => {
   if (topicId.value) {
-    const { data } = await useGetTopic(topicId.value as string, false, userInfo.value.token)
+    const { data } = await useGetTopic(
+      topicId.value as string,
+      false,
+      userInfo.value.token
+    );
     if (data.value) {
-      topic.title = data.value.title
-      topic.content = data.value.content
-      topic.tab = data.value.tab
+      topic.title = data.value.title;
+      topic.content = data.value.content;
+      topic.tab = data.value.tab;
     }
   }
-})
+});
 definePageMeta({
-  middleware: ['auth']
-})
+  middleware: ['auth'],
+});
 </script>
 <template>
   <div>
@@ -81,10 +85,21 @@ definePageMeta({
       </div>
     </div>
     <div class="topic-add__title van-hairline--surround">
-      <van-field v-model.trim="topic.title" clearable maxlength="100" placeholder="标题，字数10字以上" @clear="onClear" />
+      <van-field
+        v-model.trim="topic.title"
+        clearable
+        maxlength="100"
+        placeholder="标题，字数10字以上"
+        @clear="onClear"
+      />
     </div>
     <div class="topic-add__content">
-      <van-field v-model="topic.content" rows="20" type="textarea" placeholder="回复支持Markdown语法,请注意标记代码" />
+      <van-field
+        v-model="topic.content"
+        rows="20"
+        type="textarea"
+        placeholder="回复支持Markdown语法,请注意标记代码"
+      />
     </div>
   </div>
 </template>

@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { showToast } from 'vant'
+import { showToast } from 'vant';
 import { CNODE_USER_INFO } from '~~/constants';
-const token = ref('3bb19f00-5695-44bb-9cdb-b59efdba7b96')
-const userInfo = useUserInfo()
-const route = useRoute()
-const redirectUrl = decodeURIComponent(route.query.redirect as string || '/')
+const token = ref('3bb19f00-5695-44bb-9cdb-b59efdba7b96');
+const userInfo = useUserInfo();
+const route = useRoute();
+const redirectUrl = decodeURIComponent((route.query.redirect as string) || '/');
 
 async function onSubmit() {
   if (!token.value) {
-    showToast('令牌格式错误,应为36位UUID字符串')
-    return
+    showToast('令牌格式错误,应为36位UUID字符串');
+    return;
   }
-  const { data } = await useGetAccessToken(token.value)
+  const { data } = await useGetAccessToken(token.value);
   if (data) {
-    Reflect.deleteProperty(data.value, 'success')
+    Reflect.deleteProperty(data.value, 'success');
     const user = {
       ...data.value,
       token: token.value,
-    }
-    localStorage.setItem(CNODE_USER_INFO,JSON.stringify(user))
-    userInfo.value = user
-    navigateTo(redirectUrl, { replace: true })
+    };
+    localStorage.setItem(CNODE_USER_INFO, JSON.stringify(user));
+    userInfo.value = user;
+    navigateTo(redirectUrl, { replace: true });
   }
 }
 </script>
@@ -28,14 +28,21 @@ async function onSubmit() {
   <div>
     <NavMenu title="登录" />
     <section class="login-info">
-      <input v-model.trim="token" class="login-input" type="text" placeholder="请输入 Access Token" maxlength="36" />
+      <input
+        v-model.trim="token"
+        class="login-input"
+        type="text"
+        placeholder="请输入 Access Token"
+        maxlength="36"
+      />
       <div class="login-btn" @click="onSubmit">登录</div>
     </section>
   </div>
 </template>
 <style lang="scss">
 .login-info {
-  padding: calc(var(--cnode-padding-base) * 8) calc(var(--cnode-padding-base) * 3);
+  padding: calc(var(--cnode-padding-base) * 8)
+    calc(var(--cnode-padding-base) * 3);
   background-color: var(--cnode-background);
 }
 

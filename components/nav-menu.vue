@@ -53,7 +53,7 @@ function onSignup() {
   toggle();
 }
 function onCreateClick() {
-  navigateTo(`/topic/create?id=${props.topicId}`)
+  navigateTo(`/topic/create?id=${props.topicId}`);
 }
 </script>
 <template>
@@ -64,13 +64,14 @@ function onCreateClick() {
           v-if="showMenu"
           class="navbar__menu"
           name="bars"
-          size="20"
           @click="toggle"
         />
         <div v-else class="navbar__blank"></div>
         <div class="navbar__title flex-1 text-center" v-text="title"></div>
         <slot />
-        <i v-if="showAdd" class="iconfont navbar__icon" @click="onCreateClick">&#xe60f;</i>
+        <i v-if="showAdd" class="iconfont navbar__icon" @click="onCreateClick"
+          >&#xe60f;</i
+        >
       </header>
     </van-sticky>
     <van-popup v-model:show="show" position="left" teleport="body">
@@ -168,13 +169,13 @@ function onCreateClick() {
 </template>
 <style lang="scss">
 .navbar {
-  height: 44px;
+  padding: calc(var(--cnode-padding-base) * 1.5) var(--cnode-padding-xs);
   background-color: var(--cnode-background);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
 
   &__menu {
     color: var(--cnode-menu);
-    padding-left: 10px;
+    font-size: 20px!important;
   }
 
   &__blank {
@@ -183,12 +184,12 @@ function onCreateClick() {
 
   &__title {
     color: var(--cnode-text-color-3);
+    font-size: var(--cnode-font-size-lg);
   }
 
   &__icon {
     color: var(--cnode-background-green);
-    padding: 5px 15px;
-    border-radius: var(--cnode-radius-md);
+    font-size: 20px!important;
   }
 }
 

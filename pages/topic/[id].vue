@@ -47,7 +47,7 @@ onMounted(() => {
       <van-icon
         v-show="userInfo.token"
         name="like"
-        size="20"
+        class="topic-collect"
         :color="topic.is_collect ? '#e74c3c' : '#42b983'"
         @click="onCollect(topic.is_collect)"
       />
@@ -78,5 +78,9 @@ onMounted(() => {
   line-height: 1.5;
   background-color: var(--cnode-background-2);
   border-radius: var(--cnode-radius-md);
+}
+.topic-collect {
+  font-size: 20px!important;
+  margin-right: var(--cnode-padding-xs);
 }
 </style>
