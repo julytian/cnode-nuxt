@@ -2,8 +2,8 @@
 const show = ref(false)
 function onScroll() {
   if (
-    document.body.scrollTop > 100 ||
-    document.documentElement.scrollTop > 100
+    document.body.scrollTop > 300 ||
+    document.documentElement.scrollTop > 300
   ) {
     show.value = true;
   } else {

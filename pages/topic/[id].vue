@@ -62,8 +62,8 @@ onMounted(() => {
         v-html="topic.content"
       ></section>
     </div>
-    <TopicReply :topic="topic" @refresh="refresh" />
-    <BackTop />
+    <LazyTopicReply :topic="topic" @refresh="refresh" />
+    <LazyBackTop />
   </div>
 </template>
 <style lang="scss">

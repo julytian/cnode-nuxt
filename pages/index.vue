@@ -70,7 +70,7 @@ watch(tab, onRefresh);
         </van-list>
       </van-pull-refresh>
     </van-skeleton>
-    <BackTop />
+    <LazyBackTop />
   </div>
 </template>
 <style>
