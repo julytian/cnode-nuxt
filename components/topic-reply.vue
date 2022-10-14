@@ -103,7 +103,7 @@ function onComment() {
       <div class="markdown-body topic-reply__content" v-html="handleHtmlContent(item.content)"></div>
     </template>
     <div class="fixed topic-comment text-center" @click="onComment">
-      <van-icon name="comment-o" size="35" />
+      <van-icon name="comment-o" class="topic-comment__icon" />
     </div>
   </div>
   <van-popup v-model:show="showReply" round position="bottom">
@@ -192,5 +192,8 @@ function onComment() {
   z-index: 10;
   color: var(--cnode-comment);
   background: var(--cnode-green-2);
+  &__icon {
+    font-size: 35px!important;
+  }
 }
 </style>
