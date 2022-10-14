@@ -24,6 +24,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      title: 'CNode：Node.js专业中文社区',
       meta: [
         {
           name: 'viewport',
