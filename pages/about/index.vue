@@ -9,7 +9,7 @@
 
       <dt>预览地址</dt>
       <dd class="van-hairline--bottom">
-        <a href="https://cnode-vite.vercel.app"
+        <a href="https://cnode-nuxt.vercel.app"
           >https://cnode-nuxt.vercel.app</a
         >
       </dd>
@@ -17,7 +17,7 @@
       <dt>源码地址</dt>
       <dd class="van-hairline--bottom">
         <a href="https://github.com/julytian/cnode-nuxt.git">
-          https://github.com/julytian/cnode-vite.git</a
+          https://github.com/julytian/cnode-nuxt.git</a
         >
       </dd>
 
