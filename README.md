@@ -1,6 +1,8 @@
-# Nuxt 3 Minimal Starter
+# 前言
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+基于 Nuxt3 + Vant4 重写 cnodejs.org 社区的webapp, 部署在 vercel。
+
+> 项目灵感参考[@shinygang](https://github.com/shinygang/Vue-cnodejs)来自的Vue-cnodejs， 感谢[cnodejs](https://cnodejs.org/)社区提供的API。
 
 ## Setup
 
