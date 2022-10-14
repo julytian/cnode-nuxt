@@ -15,33 +15,32 @@ function getTabInfo(tab: string, good: boolean, top: boolean, isClass: boolean) 
 function getLastTimeStr(time: Date, friendly: boolean) {
   return useGetLastTimeStr(time, friendly);
 }
-function onClick() {
-  navigateTo(`/topic/${props.topic.id}`)
-}
 </script>
 <template>
-  <div class="topic van-hairline--bottom hover:opacity-60" @click="onClick">
-    <h3 class="line-clamp-2 font-bold" :class="getTabInfo(topic.tab, topic.good, topic.top, true)"
-      :title="getTabInfo(topic.tab, topic.good, topic.top, false)">
-      {{ topic.title }}
-    </h3>
-    <div class="flex items-center content">
-      <img class="avatar" v-lazy="topic.author.avatar_url" />
-      <div class="flex-1">
-        <p class="info">
-          <span class="name">{{ topic.author.loginname }}</span>
-          <span class="status" v-if="topic.reply_count">
-            <b>{{ topic.reply_count }}</b>
-            / {{ topic.visit_count }}
-          </span>
-        </p>
-        <p class="info">
-          <time>{{ getLastTimeStr(topic.create_at, true) }}</time>
-          <time>{{ getLastTimeStr(topic.last_reply_at, true) }}</time>
-        </p>
+  <NuxtLink :to="`/topic/${topic.id}`">
+    <div class="topic van-hairline--bottom hover:opacity-60">
+      <h3 class="line-clamp-2 font-bold" :class="getTabInfo(topic.tab, topic.good, topic.top, true)"
+        :title="getTabInfo(topic.tab, topic.good, topic.top, false)">
+        {{ topic.title }}
+      </h3>
+      <div class="flex items-center content">
+        <img class="avatar" v-lazy="topic.author.avatar_url" />
+        <div class="flex-1">
+          <p class="info">
+            <span class="name">{{ topic.author.loginname }}</span>
+            <span class="status" v-if="topic.reply_count">
+              <b>{{ topic.reply_count }}</b>
+              / {{ topic.visit_count }}
+            </span>
+          </p>
+          <p class="info">
+            <time>{{ getLastTimeStr(topic.create_at, true) }}</time>
+            <time>{{ getLastTimeStr(topic.last_reply_at, true) }}</time>
+          </p>
+        </div>
       </div>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 <style lang="scss">
 .topic {
