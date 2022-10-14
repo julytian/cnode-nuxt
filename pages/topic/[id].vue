@@ -17,9 +17,10 @@ async function onCollect(isCollect: boolean) {
 }
 
 onMounted(() => {
-  const imgs = document.querySelectorAll('#markdownBody img');
-  const images: string[] = [];
-  nextTick(() => {
+  window.scrollTo(0, 0);
+  setTimeout(() =>{
+    const imgs = document.querySelectorAll('#markdownBody img');
+    const images: string[] = [];
     imgs.forEach((img, index) => {
       let url = img.getAttribute('src') as string;
       if (!url.startsWith('http')) {
@@ -35,7 +36,7 @@ onMounted(() => {
         });
       });
     });
-  });
+  },1000)
 });
 </script>
 <template>
