@@ -1,9 +1,10 @@
-<script setup lang="ts">import { CNODE_USER_INFO } from '~~/constants';
+<script setup lang="ts">
+import { CNODE_USER_INFO } from '~~/constants';
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
-    default: ""
+    default: '',
   },
   showMenu: {
     type: Boolean,
@@ -17,50 +18,59 @@ defineProps({
     type: String,
     default: '',
   },
-})
+});
 
-const show = ref(false)
-const theme = useTheme()
-const userInfo = useUserInfo()
-const route = useRoute()
+const show = ref(false);
+const theme = useTheme();
+const userInfo = useUserInfo();
+const route = useRoute();
 
 function toggle() {
-  show.value = !show.value
+  show.value = !show.value;
 }
 function onMenuClick(url: string) {
-  toggle()
-  navigateTo(url, { replace: true })
-  window.scrollTo(0, 0)
+  toggle();
+  navigateTo(url, { replace: true });
+  window.scrollTo(0, 0);
 }
 function toggleTheme() {
-  theme.value.preference = theme.value.value === 'dark' ? 'light' : 'dark'
-  toggle()
+  theme.value.preference = theme.value.value === 'dark' ? 'light' : 'dark';
+  toggle();
 }
 function onUserClick() {
   if (userInfo.value.loginname) {
-    navigateTo(`/user/${userInfo.value.loginname}`)
+    navigateTo(`/user/${userInfo.value.loginname}`);
   } else {
-    navigateTo(`/login?redirect=${encodeURIComponent(route.path)}`, { replace: true })
+    navigateTo(`/login?redirect=${encodeURIComponent(route.path)}`, {
+      replace: true,
+    });
   }
 }
 function onSignup() {
-  localStorage.removeItem(CNODE_USER_INFO)
-  userInfo.value = {}
-  navigateTo('/', { replace: true })
-  toggle()
+  localStorage.removeItem(CNODE_USER_INFO);
+  userInfo.value = {};
+  navigateTo('/', { replace: true });
+  toggle();
+}
+function onCreateClick() {
+  navigateTo(`/topic/create?id=${props.topicId}`)
 }
 </script>
 <template>
   <div>
     <van-sticky>
       <header class="flex items-center justify-between navbar">
-        <van-icon v-if="showMenu" class="navbar__menu" name="bars" size="20" @click="toggle" />
+        <van-icon
+          v-if="showMenu"
+          class="navbar__menu"
+          name="bars"
+          size="20"
+          @click="toggle"
+        />
         <div v-else class="navbar__blank"></div>
         <div class="navbar__title flex-1 text-center" v-text="title"></div>
         <slot />
-        <NuxtLink v-if="showAdd" :to="`/topic/create?id=${topicId}`">
-          <i class="iconfont navbar__icon">&#xe60f;</i>
-        </NuxtLink>
+        <i v-if="showAdd" class="iconfont navbar__icon" @click="onCreateClick">&#xe60f;</i>
       </header>
     </van-sticky>
     <van-popup v-model:show="show" position="left" teleport="body">
@@ -73,25 +83,83 @@ function onSignup() {
             </template>
             <template v-else>
               <img class="menu__user-avatar" v-lazy="userInfo.avatar_url" />
-              <span class="flex-1 menu__user-name line-clamp-1" v-text="userInfo.loginname"></span>
+              <span
+                class="flex-1 menu__user-name line-clamp-1"
+                v-text="userInfo.loginname"
+              ></span>
               <van-icon name="arrow" class="menu__user-arrow" />
             </template>
           </div>
         </div>
         <div class="menu__list van-hairline--top">
-          <div class="iconfont icon-quanbu menu__item" @click="onMenuClick('/?tab=all')">全部</div>
-          <div class="iconfont icon-hao menu__item" @click="onMenuClick('/?tab=good')">精华</div>
-          <div class="iconfont icon-fenxiang menu__item" @click="onMenuClick('/?tab=share')">分享</div>
-          <div class="iconfont icon-wenda menu__item" @click="onMenuClick('/?tab=ask')">问答</div>
-          <div class="iconfont icon-zhaopin menu__item" @click="onMenuClick('/?tab=job')">招聘</div>
-          <div class="iconfont icon-tianjia menu__item" @click="onMenuClick('/?tab=dev')">测试</div>
-          <div class="iconfont icon-xiaoxi menu__item van-hairline--top" @click="onMenuClick('/message')">消息</div>
-          <div class="iconfont icon-about menu__item" @click="onMenuClick('/about')">关于</div>
-          <div v-if="userInfo.token" class="iconfont icon-shezhi menu__item" @click="onSignup">退出</div>
-          <div class="iconfont icon-shezhi menu__item van-hairline--top" @click="toggleTheme">
+          <div
+            class="iconfont icon-quanbu menu__item"
+            @click="onMenuClick('/?tab=all')"
+          >
+            全部
+          </div>
+          <div
+            class="iconfont icon-hao menu__item"
+            @click="onMenuClick('/?tab=good')"
+          >
+            精华
+          </div>
+          <div
+            class="iconfont icon-fenxiang menu__item"
+            @click="onMenuClick('/?tab=share')"
+          >
+            分享
+          </div>
+          <div
+            class="iconfont icon-wenda menu__item"
+            @click="onMenuClick('/?tab=ask')"
+          >
+            问答
+          </div>
+          <div
+            class="iconfont icon-zhaopin menu__item"
+            @click="onMenuClick('/?tab=job')"
+          >
+            招聘
+          </div>
+          <div
+            class="iconfont icon-tianjia menu__item"
+            @click="onMenuClick('/?tab=dev')"
+          >
+            测试
+          </div>
+          <div
+            class="iconfont icon-xiaoxi menu__item van-hairline--top"
+            @click="onMenuClick('/message')"
+          >
+            消息
+          </div>
+          <div
+            class="iconfont icon-about menu__item"
+            @click="onMenuClick('/about')"
+          >
+            关于
+          </div>
+          <div
+            v-if="userInfo.token"
+            class="iconfont icon-shezhi menu__item"
+            @click="onSignup"
+          >
+            退出
+          </div>
+          <div
+            class="iconfont icon-shezhi menu__item van-hairline--top"
+            @click="toggleTheme"
+          >
             <span>主题切换</span>
-            <img v-show="theme.value =='light'" src="https://b.yzcdn.cn/vant/dark-theme.svg" />
-            <img v-show="theme.value =='dark'" src="https://b.yzcdn.cn/vant/light-theme.svg" />
+            <img
+              v-show="theme.value == 'light'"
+              src="https://b.yzcdn.cn/vant/dark-theme.svg"
+            />
+            <img
+              v-show="theme.value == 'dark'"
+              src="https://b.yzcdn.cn/vant/light-theme.svg"
+            />
           </div>
         </div>
       </div>

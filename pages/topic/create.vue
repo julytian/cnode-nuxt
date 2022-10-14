@@ -49,6 +49,9 @@ async function onSubmit() {
     }
   }
 }
+function onClear() {
+  topic.title = ''
+}
 
 watchEffect(async () => {
   if (topicId.value) {
@@ -60,9 +63,9 @@ watchEffect(async () => {
     }
   }
 })
-function onClear() {
-  topic.title = ''
-}
+definePageMeta({
+  middleware: ['auth']
+})
 </script>
 <template>
   <div>
