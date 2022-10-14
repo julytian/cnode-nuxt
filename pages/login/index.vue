@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { showToast } from 'vant';
 import { CNODE_USER_INFO } from '~~/constants';
-const token = ref('3bb19f00-5695-44bb-9cdb-b59efdba7b96');
+const token = ref('');
 const userInfo = useUserInfo();
 const route = useRoute();
 const redirectUrl = decodeURIComponent((route.query.redirect as string) || '/');
