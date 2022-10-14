@@ -3,22 +3,22 @@
     <NavMenu title="关于" />
     <dl class="about">
       <dt>关于项目</dt>
-      <dd class="van-hairline--bottom">该项目是基于Cnodejs的api，采用vue3+vite重写的webapp。</dd>
+      <dd class="van-hairline--bottom">该项目是基于cnodejs的api，采用nuxt3重写的webapp。</dd>
 
       <dt>预览地址</dt>
       <dd class="van-hairline--bottom">
-        <a href="https://cnode-vite.vercel.app">https://cnode-vite.vercel.app</a>
+        <a href="https://cnode-vite.vercel.app">https://cnode-nuxt.vercel.app</a>
       </dd>
 
       <dt>源码地址</dt>
       <dd class="van-hairline--bottom">
-        <a href="https://github.com/julytian/cnode-vite.git">
+        <a href="https://github.com/julytian/cnode-nuxt.git">
           https://github.com/julytian/cnode-vite.git</a>
       </dd>
 
       <dt>意见反馈</dt>
       <dd class="van-hairline--bottom">
-        <a href="https://github.com/julytian/cnode-vite/issues">
+        <a href="https://github.com/julytian/cnode-nuxt/issues">
           发表意见或者提需求</a>
       </dd>
 
