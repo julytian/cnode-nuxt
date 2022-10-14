@@ -12,9 +12,6 @@ const props = defineProps({
 function getTabInfo(tab: string, good: boolean, top: boolean, isClass: boolean) {
   return useGetTabInfo(tab, good, top, isClass);
 }
-function getLastTimeStr(time: Date, friendly: boolean) {
-  return useGetLastTimeStr(time, friendly);
-}
 </script>
 <template>
   <NuxtLink :to="`/topic/${topic.id}`">
@@ -34,8 +31,8 @@ function getLastTimeStr(time: Date, friendly: boolean) {
             </span>
           </p>
           <p class="info">
-            <time>{{ getLastTimeStr(topic.create_at, true) }}</time>
-            <time>{{ getLastTimeStr(topic.last_reply_at, true) }}</time>
+            <time>{{ $getLastTimeStr(topic.create_at, true) }}</time>
+            <time>{{ $getLastTimeStr(topic.last_reply_at, true) }}</time>
           </p>
         </div>
       </div>

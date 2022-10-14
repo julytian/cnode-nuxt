@@ -16,9 +16,6 @@ defineProps({
 })
 const emits = defineEmits(['refresh'])
 
-function getLastTimeStr(time: Date, friendly: boolean) {
-  return useGetLastTimeStr(time, friendly);
-}
 function isUps(reply: IReply) {
   return reply.ups.findIndex((i) => i === userInfo.value.id) >= 0;
 }

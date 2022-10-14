@@ -8,9 +8,6 @@ const props = defineProps({
     default: () => ({})
   }
 })
-function getLastTimeStr(time: Date, friendly: boolean) {
-  return useGetLastTimeStr(time, friendly);
-}
 function goTopic() {
   navigateTo(`/topic/${props.item.topic.id}`)
 }
@@ -24,7 +21,7 @@ function goTopic() {
         <span v-if="item.type === 'at'">在回复中@了您</span>
         <span v-if="item.type === 'reply'">回复了您的话题</span>
       </p>
-      <span class="message__time" v-text="getLastTimeStr(item.reply.create_at, true)"></span>
+      <span class="message__time" v-text="$getLastTimeStr(item.reply.create_at, true)"></span>
     </div>
     <div class="message__reply" v-html="item.reply.content"></div>
     <div class="message__topic" @click="goTopic">话题：{{ item.topic.title }}</div>

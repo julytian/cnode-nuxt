@@ -14,9 +14,6 @@ async function init(loginname: string) {
   collects.value = collectList.value;
   show.value = true;
 }
-function getLastTimeStr(time: Date, friendly: boolean) {
-  return useGetLastTimeStr(time, friendly);
-}
 
 init(route.params.name as string);
 
@@ -34,7 +31,7 @@ definePageMeta({
       <div class="flex item-center justify-around w-full">
         <span
           v-if="user.create_at"
-          v-text="getLastTimeStr(user.create_at, false)"
+          v-text="$getLastTimeStr(user.create_at, false)"
         ></span>
         <span v-if="user.score" class="user__score"
           >积分: {{ user.score }}</span

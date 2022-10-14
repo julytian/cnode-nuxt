@@ -12,16 +12,13 @@ defineProps({
 function getTabInfo(tab: string, good: boolean, top: boolean, isClass: boolean) {
   return useGetTabInfo(tab, good, top, isClass);
 }
-function getLastTimeStr(time: Date, friendly: boolean) {
-  return useGetLastTimeStr(time, friendly);
-}
 </script>
 <template>
   <section class="flex items-center topic-info">
     <img v-if="topic.author" class="block topic-info__avatar" v-lazy="topic.author.avatar_url" />
     <div class="flex-1">
       <span v-if="topic.author">{{ topic.author.loginname }}</span>
-      <time> 发布于：{{ getLastTimeStr(topic.create_at, true) }} </time>
+      <time> 发布于：{{ $getLastTimeStr(topic.create_at, true) }} </time>
     </div>
     <div class="text-right">
       <span class="topic-info__tag" :class="getTabInfo(topic.tab, topic.good, topic.top, true)"

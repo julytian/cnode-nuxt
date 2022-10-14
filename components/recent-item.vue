@@ -9,9 +9,6 @@ const props = defineProps({
     required: true,
   }
 })
-function getLastTimeStr(time: Date, friendly: boolean) {
-  return useGetLastTimeStr(time, friendly);
-}
 function goTopic() {
   navigateTo(`/topic/${props.item.id}`)
 }
@@ -27,7 +24,7 @@ function refresh() {
       <div class="flex items-center justify-between">
         <span class="recent__name">{{ item.author.loginname }}</span>
         <span class="recent__time">{{
-        getLastTimeStr(item.last_reply_at, true)
+        $getLastTimeStr(item.last_reply_at, true)
         }}</span>
       </div>
     </div>
