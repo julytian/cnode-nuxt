@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { ITopic } from '~~/interfaces/topic';
-
 const route = useRoute();
-const list = ref<ITopic[]>([]);
 const loading = ref(false);
 const finished = ref(false);
 const refreshing = ref(false);
 const page = ref(1);
-const skeletonLoading = ref(true);
 const tab = computed(() => route.query?.tab ?? 'all');
 const tabs = {
   all: '全部',
@@ -20,7 +16,9 @@ const tabs = {
 const title = computed(() => tabs[tab.value as string]);
 let locked = false;
 
-async function onLoad() {
+const { data: list } = await useGetTopics(page.value, tab.value as string);
+
+async function onLoad(isRefreshing = false) {
   if (locked) {
     return;
   }
@@ -29,35 +27,42 @@ async function onLoad() {
     list.value = [];
     refreshing.value = false;
   }
-  const { data, pending } = await useGetTopics(page.value, tab.value as string);
-  skeletonLoading.value = pending.value;
-  list.value = [...list.value, ...data.value];
-  loading.value = false;
-  if (!pending.value) {
-    page.value += 1;
-    locked = false;
+  if (isRefreshing) {
+    page.value = 1;
+  } else if (page.value === 1) {
+    page.value = 2;
   }
-  if (data.value.length === 0 && page.value > 1) {
-    finished.value = true;
+  try {
+    const topics = list.value;
+    const { data, pending } = await useGetTopics(
+      page.value,
+      tab.value as string
+    );
+    if (!pending.value) {
+      list.value = [...topics, ...data.value];
+      page.value += 1;
+      loading.value = false;
+    }
+    if (data.value.length === 0 && page.value > 1) {
+      finished.value = true;
+    }
+  } finally {
+    locked = false;
   }
 }
 function onRefresh() {
-  skeletonLoading.value = true;
   refreshing.value = true;
   finished.value = false;
   loading.value = false;
-  page.value = 1;
-  onLoad();
+  onLoad(true);
 }
-
-onLoad();
 
 watch(tab, onRefresh);
 </script>
 <template>
   <div class="min-h-screen">
     <NavMenu :title="title" />
-    <van-skeleton title :row="20" :loading="skeletonLoading" class="skeleton">
+    <van-skeleton title :row="20" :loading="list.length === 0" class="skeleton">
       <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
         <van-list
           v-model:loading="loading"
