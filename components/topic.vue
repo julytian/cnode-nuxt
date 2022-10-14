@@ -5,6 +5,7 @@ import { ITopic } from '~~/interfaces/topic';
 const props = defineProps({
   topic: {
     type: Object as PropType<ITopic>,
+    default: () => ({})
   }
 })
 
